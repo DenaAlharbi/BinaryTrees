@@ -449,6 +449,20 @@ public class BST<T extends Comparable<? super T>> {
         }
         return 0;
     }
+    public int count() { 
+        if (root == null) { 
+            return 0; } 
+        int count = 0; 
+        Queue<BSTNode<T>> queue = new LinkedList<>(); 
+        queue.add(root); 
+        while (!queue.isEmpty()) { 
+            BSTNode<T> currentNode = queue.poll(); 
+            count++; 
+            if (currentNode.left != null) { 
+                queue.add(currentNode.left); } 
+            if (currentNode.right != null) { 
+                queue.add(currentNode.right); } } 
+        return count; }
 
     public boolean isLeaf(T value) {
         BSTNode<T> p = root;
@@ -459,6 +473,21 @@ public class BST<T extends Comparable<? super T>> {
                 p = p.left;
             else p = p.right;
         return false;
+    }
+    public boolean isLeaf(T value) { 
+        if (root == null) {
+            return false; } 
+        Queue<BSTNode<T>> queue = new LinkedList<>(); 
+        queue.add(root); 
+        while (!queue.isEmpty()) { 
+            BSTNode<T> currentNode = queue.poll(); 
+            if (value.equals(currentNode.el)) { 
+                return currentNode.left == null && currentNode.right == null; } 
+            if (currentNode.left != null) { 
+                queue.add(currentNode.left); } 
+            if (currentNode.right != null) { 
+                queue.add(currentNode.right); } 
+        } return false; 
     }
 
     public int countLeaves() {
